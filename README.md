@@ -111,6 +111,9 @@ POST /api/order → Create new order with multiple items
 
 DELETE /api/order/{id} → Delete order
 
+---
+
+```
 ### Performance Optimization
 
 - In-Memory Caching for frequently accessed endpoints
