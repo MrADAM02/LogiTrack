@@ -1,0 +1,99 @@
+@LogiTrack_HostAddress = http://localhost:5039
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwianRpIjoiYmVkMWYyOWEtOTdjNy00MmYwLWIzOGQtNzVjOTE2YjkxMGVjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiJkMjRhZmY5Mi1kMmJlLTRlNGMtYjg2MS00ZTI5NzFhMzA1NmIiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJVc2VyIiwiZXhwIjoxNzU1NzAyOTQ0LCJpc3MiOiJMb2dpVHJhY2tBUEkiLCJhdWQiOiJMb2dpVHJhY2tBUEkifQ.3ZF1PpUgFuLffFPu4JH_fr2nE-ubDnvV7PtnoevB7Mw
+
+# Register a new user
+POST {{LogiTrack_HostAddress}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "Password123!"
+}
+
+###
+
+# Login an existing user and save JWT
+POST {{LogiTrack_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user@example.com",
+  "password": "Password123!"
+}
+
+
+###
+
+### --- InventoryController ---
+
+# Get all inventory items (requires token)
+GET {{LogiTrack_HostAddress}}/api/inventory
+Accept: application/json
+Authorization: {{token}}
+
+###
+
+# Add a new inventory item (requires token)
+POST {{LogiTrack_HostAddress}}/api/inventory
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Sample Item 3",
+  "quantity": 5,
+  "location": "Warehouse B"
+}
+
+###
+
+# Delete an inventory item by ID (requires token)
+DELETE {{LogiTrack_HostAddress}}/api/inventory/5
+Accept: application/json
+Authorization: {{token}}
+
+###
+
+# Get all inventory items with timed endpoint
+GET {{LogiTrack_HostAddress}}/api/inventory/timed
+Accept: application/json
+Authorization: {{token}}
+
+
+### --- OrderController ---
+
+# Get all orders (requires token)
+GET {{LogiTrack_HostAddress}}/api/order
+Accept: application/json
+Authorization: {{token}}
+
+###
+
+# Get a specific order by ID (requires token)
+GET {{LogiTrack_HostAddress}}/api/order/1
+Accept: application/json
+Authorization: {{token}}
+
+###
+
+# Create a new order (requires token)
+POST {{LogiTrack_HostAddress}}/api/order
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "customerName": "John Doe",
+  "items": [
+    {
+      "name": "Sample Item",
+      "quantity": 2,
+      "location": "Warehouse A"
+    }
+  ]
+}
+
+###
+
+# Delete an order by ID (requires token)
+DELETE {{LogiTrack_HostAddress}}/api/order/1
+Accept: application/json
+Authorization: {{token}}
